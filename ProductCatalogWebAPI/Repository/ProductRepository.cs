@@ -13,14 +13,17 @@ namespace ProductCatalogWebAPI.Repository
             , new Product() { ProductId = 1237, ProductName = "Washing Machine", ProductCategory = "HA", ProductCategoryDescription = "Home Appliances - Big", ProductDescription = "Washing Machine 7.2KG", ProductPrice = 18000, ProductDiscountRate = 6, ProductInStock = true }
         };
 
-        public ProductRepository(List<Product> products)
-        {
-            this.products = products;
-        }
+        //public ProductRepository(List<Product> products)
+        //{
+        //    this.products = products;
+        //}
 
         public List<Product> GetProducts() { return products; }
 
-        public Product GetProductById(int productId) { products.Find(x => x.ProductId== productId); return products[productId]; }
+        public Product GetProductById(int productId) 
+        { 
+            return products.Find(x => x.ProductId== productId);
+        }
         public List<Product> GetProductByCategory(string category)
         {
             List<Product> pd = products.FindAll(x => x.ProductCategory== category);
@@ -33,9 +36,16 @@ namespace ProductCatalogWebAPI.Repository
             return pd;
         }
 
-        public bool DeleteProduct(int productId)
+        public List<Product> DeleteProduct(int productId)
         {
-            return products.Remove(GetProductById(productId));
+            products.Remove(GetProductById(productId));
+            return products;
+        }
+
+        public List<Product> AddProduct(Product product)
+        {
+            products.Add(product);
+            return products;
         }
     }
 }

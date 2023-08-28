@@ -29,22 +29,23 @@ namespace ProductCatalogWebAPI.Controllers
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] Product value)
+        public IEnumerable<Product> Post([FromBody] Product value)
         {
             ProductRepository productRepo = new ProductRepository();
             productRepo.AddProduct(new Product { ProductName = value.ProductName, ProductId = value.ProductId, ProductCategory = value.ProductCategory, ProductCategoryDescription = value.ProductCategoryDescription, ProductDescription = value.ProductDescription, ProductPrice = value.ProductPrice, ProductDiscountRate = value.ProductDiscountRate, ProductInStock = value.ProductInStock });
+            return productRepo.GetProducts();
         }
 
         // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
 
-        }
+        //}
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public bool Delete(int id)
+        public IEnumerable<Product> Delete(int id)
         {
             ProductRepository productRepo = new ProductRepository();
             return productRepo.DeleteProduct(id);
